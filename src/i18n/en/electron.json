@@ -16,5 +16,41 @@
       "starting": "Launching...",
       "restarting": "Restarting..."
     }
+  },
+  "menu": {
+    "edit": {
+      "label": "Edit",
+      "submenu": {
+        "undo": "Undo",
+        "redo": "Redo",
+        "cut": "Cut",
+        "copy": "Copy",
+        "paste": "Paste",
+        "selectAll": "Select All"
+      }
+    },
+    "view": {
+      "label": "View",
+      "submenu": {
+        "reload": "Reload",
+        "forceReload": "Force Reload",
+        "toggleDevTools": "Toggle Developer Tools",
+        "actualSize": "Actual Size",
+        "zoomIn": "Zoom in",
+        "zoomOut": "Zoom out",
+        "toggleFullScreen": "Toggle Full Screen"
+      }
+    },
+    "help": {
+      "label": "Help",
+      "submenu": {
+        "documentation": "Documentation",
+        "learnMore": "Learn More",
+        "communityDiscussions": "Community Discussions",
+        "searchIssues": "Search Issues",
+        "checkForUpdates": "Check for updates",
+        "about": "About"
+      }
+    }
   }
 }
