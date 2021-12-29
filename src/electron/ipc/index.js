@@ -1,8 +1,8 @@
 const handlerFiles = [
-  './about.js',
-  './clipboard.js',
-  './fileOperations.js',
-  './updater.js',
+  "./about.js",
+  "./clipboard.js",
+  "./fileOperations.js",
+  "./updater.js",
 ];
 
 const RegisterIpcHandlers = () => {

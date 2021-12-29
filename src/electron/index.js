@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require("path");
 const {
   app,
   BrowserWindow,
@@ -6,19 +6,19 @@ const {
   Notification,
   Menu,
   shell,
-} = require('electron');
+} = require("electron");
 
-const isDev = require('electron-is-dev');
-const { autoUpdater } = require('electron-updater');
-const log = require('electron-log');
-const i18n = require('i18next');
-const i18nBackend = require('i18next-node-fs-backend');
+const isDev = require("electron-is-dev");
+const { autoUpdater } = require("electron-updater");
+const log = require("electron-log");
+const i18n = require("i18next");
+const i18nBackend = require("i18next-node-fs-backend");
 
-const { getMenuTemplate } = require('./menu');
-const { RegisterIpcHandlers } = require('./ipc');
+const { getMenuTemplate } = require("./menu");
+const { RegisterIpcHandlers } = require("./ipc");
 
 app.allowRendererProcessReuse = true;
-log.transports.file.level = 'debug';
+log.transports.file.level = "debug";
 autoUpdater.logger = log;
 autoUpdater.autoDownload = false;
 autoUpdater.allowDowngrade = true; // just in case we want to revert a build
@@ -55,13 +55,13 @@ const localize = async () => {
     lng: app.getLocale(),
     debug: false,
     backend: {
-      loadPath: path.join(__dirname, '../i18n/{{lng}}/electron.json'),
+      loadPath: path.join(__dirname, "../i18n/{{lng}}/electron.json"),
     },
     interpolation: {
       escapeValue: false,
     },
     saveMissing: true,
-    fallbackLng: 'en',
+    fallbackLng: "en",
   });
 };
 
@@ -72,7 +72,7 @@ const createWindow = () => {
     height: 900,
     minWidth: 950,
     minHeight: 650,
-    icon: path.join(__dirname, '../images/logo/vocascan-round-linux.png'),
+    icon: path.join(__dirname, "../images/logo/vocascan-round-linux.png"),
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -87,7 +87,7 @@ const createWindow = () => {
     width: 350,
     height: 450,
     resizable: false,
-    icon: path.join(__dirname, '../images/logo/vocascan-round-linux.png'),
+    icon: path.join(__dirname, "../images/logo/vocascan-round-linux.png"),
     frame: false,
     webPreferences: {
       nodeIntegration: true,
@@ -105,7 +105,7 @@ const createWindow = () => {
   RegisterIpcHandlers(i18n);
 
   windows.splash.loadURL(
-    `file://${path.join(__dirname, './splash/splash-screen.html')}`
+    `file://${path.join(__dirname, "./splash/splash-screen.html")}`
   );
 
   if (isDev) {
@@ -114,7 +114,7 @@ const createWindow = () => {
       default: installExtension,
       REACT_DEVELOPER_TOOLS,
       REDUX_DEVTOOLS,
-    } = require('electron-devtools-installer');
+    } = require("electron-devtools-installer");
 
     installExtension([REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS])
       .then((name) => {
@@ -124,27 +124,27 @@ const createWindow = () => {
         windows.main.webContents.openDevTools();
 
         // load dev server with hot reload
-        windows.main.loadURL('http://localhost:3000');
+        windows.main.loadURL("http://localhost:3000");
       })
-      .catch((err) => console.log('An error occurred: ', err));
+      .catch((err) => console.log("An error occurred: ", err));
   } else {
     // load static react build from build folder
     windows.main.loadURL(
-      `file://${path.join(__dirname, '../vocascan-frontend/build/index.html')}`
+      `file://${path.join(__dirname, "../vocascan-frontend/build/index.html")}`
     );
   }
 
   // clear memory
-  windows.main.on('closed', () => (windows.main = null));
-  windows.splash.on('closed', () => (windows.splash = null));
+  windows.main.on("closed", () => (windows.main = null));
+  windows.splash.on("closed", () => (windows.splash = null));
 
   // open links in default browser
-  windows.main.webContents.on('new-window', (e, url) => {
+  windows.main.webContents.on("new-window", (e, url) => {
     e.preventDefault();
     shell.openExternal(url);
   });
 
-  windows.splash.once('ready-to-show', () => {
+  windows.splash.once("ready-to-show", () => {
     if (!isDev) {
       windows.splash.show();
 
@@ -157,18 +157,18 @@ const createWindow = () => {
     }
   });
 
-  windows.splash.webContents.on('did-finish-load', () => {
-    windows.splash.webContents.send('translations', {
-      check: i18n.t('splash.updates.check'),
-      skipCheck: i18n.t('splash.updates.skipCheck'),
-      download: i18n.t('splash.updates.download'),
-      skipButton: i18n.t('splash.updates.skipButton'),
-      starting: i18n.t('splash.start.starting'),
-      restarting: i18n.t('splash.start.restarting'),
+  windows.splash.webContents.on("did-finish-load", () => {
+    windows.splash.webContents.send("translations", {
+      check: i18n.t("splash.updates.check"),
+      skipCheck: i18n.t("splash.updates.skipCheck"),
+      download: i18n.t("splash.updates.download"),
+      skipButton: i18n.t("splash.updates.skipButton"),
+      starting: i18n.t("splash.start.starting"),
+      restarting: i18n.t("splash.start.restarting"),
     });
   });
 
-  windows.main.once('ready-to-show', () => {
+  windows.main.once("ready-to-show", () => {
     if (!isDev) {
       mainIsReady = true;
     }
@@ -193,7 +193,7 @@ const updateNotify = (isDarwin, info) => {
 
   // send notification to main window
   if (windows.main) {
-    windows.main.webContents.send('update-available', isDarwin, info);
+    windows.main.webContents.send("update-available", isDarwin, info);
   }
 
   // show push notification
@@ -202,9 +202,9 @@ const updateNotify = (isDarwin, info) => {
   };
 
   if (isDarwin) {
-    notification.body = 'You have to download and install the update yourself.';
+    notification.body = "You have to download and install the update yourself.";
   } else {
-    notification.body = 'Update will be automatically installed on exit';
+    notification.body = "Update will be automatically installed on exit";
   }
 
   new Notification(notification).show();
@@ -212,7 +212,7 @@ const updateNotify = (isDarwin, info) => {
 
 const skipUpdateCheck = () => {
   if (windows.splash) {
-    windows.splash.webContents.send('skipCheck');
+    windows.splash.webContents.send("skipCheck");
 
     setTimeout(() => {
       launch();
@@ -232,7 +232,7 @@ const cancelSkipUpdate = () => {
 if (!gotTheLock && !isDev) {
   app.quit();
 } else {
-  app.on('second-instance', (event, commandLine, workingDirectory) => {
+  app.on("second-instance", (event, commandLine, workingDirectory) => {
     // Someone tried to run a second instance, we should focus our window.
     if (windows.main) {
       if (windows.main.isMinimized()) windows.main.restore();
@@ -240,7 +240,7 @@ if (!gotTheLock && !isDev) {
     }
   });
 
-  app.on('ready', async () => {
+  app.on("ready", async () => {
     await localize();
 
     createWindow();
@@ -257,32 +257,32 @@ if (!gotTheLock && !isDev) {
     }
   });
 
-  app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
+  app.on("window-all-closed", () => {
+    if (process.platform !== "darwin") {
       app.quit();
     }
   });
 
-  app.on('activate', () => {
+  app.on("activate", () => {
     if (windows.main === null) {
       createWindow();
     }
   });
 }
 
-ipcMain.on('start-update', () => {
+ipcMain.on("start-update", () => {
   if (updateAvailable && !isDev) {
     autoUpdater.quitAndInstall();
   }
 });
 
-ipcMain.on('skip-check', () => {
+ipcMain.on("skip-check", () => {
   skipUpdateCheck();
 });
 
-autoUpdater.on('checking-for-update', () => {
+autoUpdater.on("checking-for-update", () => {
   if (windows.splash) {
-    windows.splash.webContents.send('check');
+    windows.splash.webContents.send("check");
   }
 
   cancelSkipUpdate();
@@ -291,8 +291,8 @@ autoUpdater.on('checking-for-update', () => {
   }, TIMES.skipUpdateTimeout);
 });
 
-autoUpdater.on('update-available', (info) => {
-  if (process.platform !== 'darwin') {
+autoUpdater.on("update-available", (info) => {
+  if (process.platform !== "darwin") {
     // download update if platform is not darwin
     autoUpdater.downloadUpdate();
   }
@@ -304,42 +304,42 @@ autoUpdater.on('update-available', (info) => {
 
   if (windows.splash) {
     // check if mac -> cannot update without certificate
-    if (process.platform !== 'darwin') {
-      windows.splash.webContents.send('download', info);
+    if (process.platform !== "darwin") {
+      windows.splash.webContents.send("download", info);
     } else {
       launch();
     }
   }
 
-  if (windows.main && process.platform === 'darwin') {
+  if (windows.main && process.platform === "darwin") {
     updateNotify(true, info);
   }
 });
 
-autoUpdater.on('update-not-available', (info) => {
+autoUpdater.on("update-not-available", (info) => {
   if (windows.splash) {
-    windows.splash.webContents.send('launch', info);
+    windows.splash.webContents.send("launch", info);
 
     launch();
     cancelSkipUpdate();
   }
 });
 
-autoUpdater.on('download-progress', (progress) => {
+autoUpdater.on("download-progress", (progress) => {
   if (windows.splash) {
     const formatted = Math.floor(progress.percent);
-    windows.splash.webContents.send('progress', formatted);
+    windows.splash.webContents.send("progress", formatted);
     windows.splash.setProgressBar(formatted);
   }
 
   cancelSkipUpdate();
 });
 
-autoUpdater.on('update-downloaded', (info) => {
+autoUpdater.on("update-downloaded", (info) => {
   updateAvailable = true;
 
   if (windows.splash) {
-    windows.splash.webContents.send('relaunch', info);
+    windows.splash.webContents.send("relaunch", info);
 
     setTimeout(() => {
       autoUpdater.quitAndInstall();

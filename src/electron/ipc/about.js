@@ -1,12 +1,12 @@
-const os = require('os');
-const { ipcMain, app, dialog, clipboard } = require('electron');
-const i18n = require('i18next');
+const os = require("os");
+const { ipcMain, app, dialog, clipboard } = require("electron");
+const i18n = require("i18next");
 
-const { commit, date } = require('../../../package.json');
-const { dayDateDiff } = require('../../utils/utils');
+const { commit, date } = require("../../../package.json");
+const { dayDateDiff } = require("../../utils/utils");
 
 const getVersionString = () => {
-  let dateString = 'unknown';
+  let dateString = "unknown";
 
   if (date && !isNaN(new Date(date))) {
     const jsDate = new Date(date);
@@ -18,7 +18,7 @@ const getVersionString = () => {
 
   const versionString = `
         Version: ${app.getVersion()}
-        Commit: ${commit || 'unknown'}
+        Commit: ${commit || "unknown"}
         Date: ${dateString}
         Electron: ${process.versions.electron}
         Chrome: ${process.versions.chrome}
@@ -31,15 +31,15 @@ const getVersionString = () => {
 };
 
 const registerIpcHandlers = () => {
-  ipcMain.on('openAbout', async () => {
+  ipcMain.on("openAbout", async () => {
     const versionString = getVersionString();
 
     const { response } = await dialog.showMessageBox({
-      type: 'info',
-      title: 'Vocascan',
+      type: "info",
+      title: "Vocascan",
       message: versionString,
       noLink: true,
-      buttons: [i18n.t('dialogs.actions.ok'), i18n.t('dialogs.actions.copy')],
+      buttons: [i18n.t("dialogs.actions.ok"), i18n.t("dialogs.actions.copy")],
     });
 
     if (response === 1) {

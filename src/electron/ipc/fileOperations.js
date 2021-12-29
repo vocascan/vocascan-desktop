@@ -1,8 +1,8 @@
-const fs = require('fs');
-const { ipcMain, dialog } = require('electron');
+const fs = require("fs");
+const { ipcMain, dialog } = require("electron");
 
 const registerIpcHandlers = () => {
-  ipcMain.handle('save-file', async (_event, arg) => {
+  ipcMain.handle("save-file", async (_event, arg) => {
     await dialog
       .showSaveDialog({
         title: arg.head,
@@ -10,8 +10,8 @@ const registerIpcHandlers = () => {
         // Restricting the user to only json Files.
         filters: [
           {
-            name: 'JSON file',
-            extensions: ['json'],
+            name: "JSON file",
+            extensions: ["json"],
           },
         ],
         properties: [],
@@ -29,21 +29,21 @@ const registerIpcHandlers = () => {
       });
   });
 
-  ipcMain.handle('open-file', async () => {
+  ipcMain.handle("open-file", async () => {
     return new Promise((resolve, reject) => {
       dialog
         .showOpenDialog({
           filters: [
             {
-              name: 'JSON file',
-              extensions: ['json'],
+              name: "JSON file",
+              extensions: ["json"],
             },
           ],
-          properties: ['openFile'],
+          properties: ["openFile"],
         })
         .then((file) => {
           if (!file.canceled) {
-            fs.readFile(file.filePaths[0], 'utf8', (_err, data) => {
+            fs.readFile(file.filePaths[0], "utf8", (_err, data) => {
               try {
                 resolve(JSON.parse(data));
               } catch (e) {
