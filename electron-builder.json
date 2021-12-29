@@ -1,0 +1,35 @@
+{
+  "appId": "com.vocascan",
+  "productName": "Vocascan",
+  "asar": true,
+  "win": {
+    "icon": "src/images/logo/vocascan-round-win.ico",
+    "target": ["nsis"]
+  },
+  "linux": {
+    "icon": "src/images/logo/vocascan-round-linux.png",
+    "target": ["deb", "AppImage", "snap", "tar.gz", "rpm"],
+    "category": "Education"
+  },
+  "mac": {
+    "icon": "src/images/logo/vocascan-round-mac.png",
+    "category": "public.app-category.education",
+    "target": ["dmg"]
+  },
+  "directories": {
+    "output": "./build"
+  },
+  "files": [
+    "src/electron/**/*",
+    "src/images/**/*",
+    "src/utils/**/*",
+    "src/utils/**/*",
+    "src/i18n/**/*.json",
+    "src/vocascan-frontend/build/**/*",
+    "package.json"
+  ],
+  "extraMetadata": {
+    "main": "src/electron/index.js"
+  },
+  "extends": null
+}

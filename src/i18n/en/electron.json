@@ -1,0 +1,20 @@
+{
+  "dialogs": {
+    "actions": {
+      "ok": "Ok",
+      "copy": "Copy"
+    }
+  },
+  "splash": {
+    "updates": {
+      "check": "Checking for updates...",
+      "skipCheck": "Skipping update checks...",
+      "download": "Downloading update...",
+      "skipButton": "Skip"
+    },
+    "start": {
+      "starting": "Launching...",
+      "restarting": "Restarting..."
+    }
+  }
+}

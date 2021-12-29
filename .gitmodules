@@ -1,0 +1,3 @@
+[submodule "src/vocascan-frontend"]
+	path = src/vocascan-frontend
+	url = ../../vocascan/vocascan-frontend.git
