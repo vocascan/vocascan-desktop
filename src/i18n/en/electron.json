@@ -5,6 +5,11 @@
       "copy": "Copy"
     }
   },
+  "ipc": {
+    "fileOperations": {
+      "saveFile": "Select where you want to save the file"
+    }
+  },
   "splash": {
     "updates": {
       "check": "Checking for updates...",

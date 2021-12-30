@@ -1,11 +1,12 @@
 const fs = require("fs");
+const { t } = require("i18next");
 const { ipcMain, dialog } = require("electron");
 
 const registerIpcHandlers = () => {
   ipcMain.handle("save-file", async (_event, arg) => {
     await dialog
       .showSaveDialog({
-        title: arg.head,
+        title: t("ipc.fileOperations.saveFile"),
         defaultPath: `./${arg.title}`,
         // Restricting the user to only json Files.
         filters: [
