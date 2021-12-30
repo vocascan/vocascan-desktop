@@ -102,3 +102,13 @@ dist
 
 # TernJS port file
 .tern-port
+
+# electron-builder
+build/
+dev-app-update.yml
+
+# localazy
+localazy.keys.json
+
+# jetbrains
+.idea/

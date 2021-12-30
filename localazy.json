@@ -1,0 +1,14 @@
+{
+  "upload": {
+    "type": "json",
+    "files": "src/i18n/en/electron.json",
+    "deprecateMissing": true,
+    "features": ["array", "filter_untranslated", "plural_postfix_us"]
+  },
+  "download": {
+    "files": {
+      "conditions": ["equals: ${file}, electron.json"],
+      "output": "src/i18n/${lang}/electron.json"
+    }
+  }
+}

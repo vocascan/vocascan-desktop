@@ -1,0 +1,53 @@
+name: Check pull request
+on:
+  pull_request:
+    branches-ignore:
+      - "main"
+      - "experimental"
+
+jobs:
+  check:
+    name: 🔍 Check pull request
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Check translations
+        uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          list-files: json
+          filters: |
+            translations:
+              - "src/i18n/!(en)/*.json"
+
+      - name: Format files output
+        if: steps.changes.outputs.translations == 'true'
+        id: files-output
+        run: |
+          files=$(node -e 'console.log("- " + JSON.parse(`${{ steps.changes.outputs.translations_files }}`).join("\n- "))')
+          files="${files//$'\n'/'%0A'}"
+          echo "::set-output name=files::${files}"
+
+      - name: Comment on pull request
+        if: steps.changes.outputs.translations == 'true'
+        uses: unsplash/comment-on-pr@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.VOCASCAN_BOT_TOKEN }}
+        with:
+          msg: |
+            Thank you for your pull request.
+            Please remove your translations. Change only the `en/electron.json` if necessary. 
+            If this pull request is merged into the [`experimental`](https://github.com/vocascan/vocascan-desktop/tree/experimental) branch, it can be translated via [localazy](https://localazy.com/p/vocascan).
+
+            Please remove following files from pull request changes.
+            ```
+            ${{ steps.files-output.outputs.files }}
+            ```
+
+      - name: Check if failed
+        if: steps.changes.outputs.translations == 'true'
+        run: |
+          echo "only change en.json"
+          exit 1

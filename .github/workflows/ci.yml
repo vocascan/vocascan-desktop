@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  test:
+    name: 🧪 Test
+    runs-on: ubuntu-latest
+    if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+
+      - name: Install
+        run: npm i
+
+      - name: Lint js
+        run: npm run lint:js -- --max-warnings=0
+
+  release:
+    name: 📦 Build and Publish
+    needs: test
+    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      # keep building even if another job is failed
+      fail-fast: false
+      matrix:
+        os: [windows-latest] #, ubuntu-latest, macos-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+
+      - name: Install dependencies
+        run: |
+          npm install
+          cd src/vocascan-frontend && npm install
+
+      - name: Date
+        id: date
+        run: echo "::set-output name=date::$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+
+      - name: Install Snapcraft
+        uses: samuelmeuli/action-snapcraft@v1
+        if: false # startsWith(matrix.os, 'ubuntu')
+        with:
+          # Log in to Snap Store
+          snapcraft_token: ${{ secrets.SNAPCRAFT_TOKEN }}
+
+      - name: Install RPM
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          sudo apt install rpm
+
+      - name: Build/release Electron app
+        uses: samuelmeuli/action-electron-builder@v1
+        with:
+          build_script_name: build:react
+          github_token: ${{ secrets.VOCASCAN_BOT_TOKEN }}
+          args: "-c.extraMetadata.commit='${{ github.sha }}' -c.extraMetadata.date='${{ steps.date.outputs.date }}'"
+          release: true
