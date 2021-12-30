@@ -102,7 +102,7 @@ const createWindow = () => {
   Menu.setApplicationMenu(mainMenu);
 
   // register ipc handler
-  RegisterIpcHandlers(i18n);
+  RegisterIpcHandlers({ windows });
 
   windows.splash.loadURL(
     `file://${path.join(__dirname, "./splash/splash-screen.html")}`

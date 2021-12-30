@@ -5,9 +5,9 @@ const handlerFiles = [
   "./updater.js",
 ];
 
-const RegisterIpcHandlers = () => {
+const RegisterIpcHandlers = (args) => {
   for (const filePath of handlerFiles) {
-    require(filePath)();
+    require(filePath)(args);
   }
 };
 
