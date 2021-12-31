@@ -74,10 +74,9 @@ const createWindow = () => {
     minHeight: 650,
     icon: path.join(__dirname, "../images/logo/vocascan-round-linux.png"),
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-      enableRemoteModule: true,
-      webSecurity: false,
+      nodeIntegration: false,
+      contextIsolation: true,
+      preload: path.join(__dirname, "./windows/main/preload.js"),
     },
     show: false,
   });
@@ -90,9 +89,9 @@ const createWindow = () => {
     icon: path.join(__dirname, "../images/logo/vocascan-round-linux.png"),
     frame: false,
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-      enableRemoteModule: true,
+      nodeIntegration: false,
+      contextIsolation: true,
+      preload: path.join(__dirname, "./windows/splash/preload.js"),
     },
     show: false,
   });
@@ -105,7 +104,7 @@ const createWindow = () => {
   RegisterIpcHandlers({ windows });
 
   windows.splash.loadURL(
-    `file://${path.join(__dirname, "./splash/splash-screen.html")}`
+    `file://${path.join(__dirname, "./windows/splash/splash-screen.html")}`
   );
 
   if (isDev) {
@@ -158,14 +157,10 @@ const createWindow = () => {
   });
 
   windows.splash.webContents.on("did-finish-load", () => {
-    windows.splash.webContents.send("translations", {
-      check: i18n.t("splash.updates.check"),
-      skipCheck: i18n.t("splash.updates.skipCheck"),
-      download: i18n.t("splash.updates.download"),
-      skipButton: i18n.t("splash.updates.skipButton"),
-      starting: i18n.t("splash.start.starting"),
-      restarting: i18n.t("splash.start.restarting"),
-    });
+    windows.splash.webContents.send(
+      "translations",
+      i18n.t("splash", { returnObjects: true })
+    );
   });
 
   windows.main.once("ready-to-show", () => {
