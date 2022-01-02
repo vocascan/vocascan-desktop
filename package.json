@@ -12,6 +12,7 @@
   "scripts": {
     "start": "concurrently \"cross-env BROWSER=none npm run start:react\" \"wait-on http://localhost:3000 && electron .\"",
     "start:react": "npm run --prefix src/vocascan-frontend start",
+    "start:electron": "electron .",
     "build": "npm run build:react && npm run build:electron",
     "build:react": "npm run --prefix src/vocascan-frontend build",
     "build:electron": "electron-builder",
