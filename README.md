@@ -91,14 +91,14 @@ If any questions have come up, it's best to check out our [FAQ](https://docs.voc
 
 ## Usage
 
-<img src="src/vocascan-frontend/src/images/preview/dashboard.png" alt="dashboard" width="600">
+<img src="https://raw.githubusercontent.com/vocascan/vocascan-frontend/main/src/images/preview/dashboard.png" alt="dashboard" width="600">
 </br>
 <details>
   <summary>More Images</summary>
-  <img src="src/vocascan-frontend/src/images/preview/add-vocab-screen.png" alt="add-vocab-screen" width="600">
-  <img src="src/vocascan-frontend/src/images/preview/language-selection.png" alt="language-selection" width="600">
-  <img src="src/vocascan-frontend/src/images/preview/query-card-front.png" alt="query-card-front" width="600">
-  <img src="src/vocascan-frontend/src/images/preview/query-card-back.png" alt="query-card-back" width="600">
+  <img src="https://raw.githubusercontent.com/vocascan/vocascan-frontend/main/src/images/preview/add-vocab-screen.png" alt="add-vocab-screen" width="600">
+  <img src="https://raw.githubusercontent.com/vocascan/vocascan-frontend/main/src/images/preview/language-selection.png" alt="language-selection" width="600">
+  <img src="https://raw.githubusercontent.com/vocascan/vocascan-frontend/main/src/images/preview/query-card-front.png" alt="query-card-front" width="600">
+  <img src="https://raw.githubusercontent.com/vocascan/vocascan-frontend/main/src/images/preview/query-card-back.png" alt="query-card-back" width="600">
 </details>
 
 </br>
