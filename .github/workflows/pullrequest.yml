@@ -8,6 +8,7 @@ on:
 jobs:
   check:
     name: 🔍 Check pull request
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'reviewed/skip-check') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
