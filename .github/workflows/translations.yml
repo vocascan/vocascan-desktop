@@ -34,6 +34,12 @@ jobs:
           file_pattern: src/i18n/**/electron.json
           branch: experimental
 
+      - name: Install dependency
+        run: |
+          mv package.json package.json.bak
+          npm install --no-package-lock --no-save semver
+          mv package.json.bak package.json
+
       - name: Extract version
         uses: actions/github-script@v5
         id: prepare
