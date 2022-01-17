@@ -119,8 +119,14 @@ const createWindow = () => {
       .then((name) => {
         console.log(`Added Extension:  ${name}`);
 
-        // open dev tools
-        windows.main.webContents.openDevTools();
+        windows.main.webContents.on("did-frame-finish-load", () => {
+          windows.main.webContents.once("devtools-opened", () => {
+            windows.main.webContents.focus();
+          });
+
+          // open dev tools
+          windows.main.webContents.openDevTools();
+        });
 
         // load dev server with hot reload
         windows.main.loadURL("http://localhost:3000");
