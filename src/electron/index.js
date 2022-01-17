@@ -6,6 +6,7 @@ const {
   Notification,
   Menu,
   shell,
+  session,
 } = require("electron");
 
 const isDev = require("electron-is-dev");
@@ -95,6 +96,26 @@ const createWindow = () => {
     },
     show: false,
   });
+
+  // Bypassing CORS with electron
+  // https://pratikpc.medium.com/bypassing-cors-with-electron-ab7eaf331605
+  windows.main.webContents.session.webRequest.onBeforeSendHeaders(
+    (details, callback) => {
+      callback({ requestHeaders: { Origin: "*", ...details.requestHeaders } });
+    }
+  );
+
+  windows.main.webContents.session.webRequest.onHeadersReceived(
+    (details, callback) => {
+      callback({
+        responseHeaders: {
+          "Access-Control-Allow-Origin": ["*"],
+          "Access-Control-Allow-Headers": ["*"],
+          ...details.responseHeaders,
+        },
+      });
+    }
+  );
 
   // insert menubar
   const mainMenu = Menu.buildFromTemplate(getMenuTemplate());
