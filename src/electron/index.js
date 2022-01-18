@@ -80,6 +80,7 @@ const createWindow = () => {
       preload: path.join(__dirname, "./windows/main/preload.js"),
     },
     show: false,
+    title: "Vocascan",
   });
 
   // Create the main window.
@@ -95,6 +96,7 @@ const createWindow = () => {
       preload: path.join(__dirname, "./windows/splash/preload.js"),
     },
     show: false,
+    title: "Vocascan",
   });
 
   // Bypassing CORS with electron
@@ -116,6 +118,13 @@ const createWindow = () => {
       });
     }
   );
+
+  // prevent page title update
+  for (const window of [windows.main, windows.splash]) {
+    window.on("page-title-updated", function (e) {
+      e.preventDefault();
+    });
+  }
 
   // insert menubar
   const mainMenu = Menu.buildFromTemplate(getMenuTemplate());
