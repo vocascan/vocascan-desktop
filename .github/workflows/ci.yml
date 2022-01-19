@@ -73,5 +73,5 @@ jobs:
         with:
           build_script_name: build:react
           github_token: ${{ secrets.VOCASCAN_BOT_TOKEN }}
-          args: "-c.extraMetadata.commit='${{ github.sha }}' -c.extraMetadata.date='${{ steps.date.outputs.date }}'"
+          args: "-c.extraMetadata.commit='${{ github.sha }}' -c.extraMetadata.date='${{ steps.date.outputs.date }}' -c.extraMetadata.runId='${{ env.GITHUB_RUN_ID }}' -c.extraMetadata.runNumber='${{ env.GITHUB_RUN_NUMBER }}'"
           release: true
