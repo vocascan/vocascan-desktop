@@ -8,8 +8,8 @@ const { dayDateDiff } = require("../../utils/utils");
 const getVersionString = () => {
   let dateString = "unknown";
 
-  if (date && !isNaN(new Date(date))) {
-    const jsDate = new Date(date);
+  if (metadata.date && !isNaN(new Date(metadata.date))) {
+    const jsDate = new Date(metadata.date);
     dateString = `${jsDate.toISOString()} (${dayDateDiff(
       jsDate,
       new Date()
@@ -17,8 +17,8 @@ const getVersionString = () => {
   }
 
   const versionString = `
-        Version: ${app.getVersion()} (#${runNumber}-${runId})
-        Commit: ${commit || "unknown"}
+        Version: ${app.getVersion()} (#${metadata.runNumber}-${metadata.runId})
+        Commit: ${metadata.commit || "unknown"}
         Date: ${dateString}
         Electron: ${process.versions.electron}
         Chrome: ${process.versions.chrome}
