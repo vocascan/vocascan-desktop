@@ -6,11 +6,10 @@ const {
   Notification,
   Menu,
   shell,
-  session,
 } = require("electron");
 
 const isDev = require("electron-is-dev");
-const { autoUpdater } = require("electron-updater");
+const { autoUpdater, CancellationToken } = require("electron-updater");
 const log = require("electron-log");
 const i18n = require("i18next");
 const i18nBackend = require("i18next-node-fs-backend");
@@ -46,6 +45,8 @@ const TIMES = {
   skipUpdateTimeout: 15 * 1000,
   skipUpdateShow: 1 * 1000,
 };
+
+const updateCancellationToken = new CancellationToken();
 
 let mainIsReady = false;
 let splashShowEnough = false;
@@ -308,6 +309,8 @@ ipcMain.on("start-update", () => {
 });
 
 ipcMain.on("skip-check", () => {
+  updateCancellationToken.cancel();
+
   skipUpdateCheck();
 });
 
@@ -325,7 +328,7 @@ autoUpdater.on("checking-for-update", () => {
 autoUpdater.on("update-available", (info) => {
   if (process.platform !== "darwin") {
     // download update if platform is not darwin
-    autoUpdater.downloadUpdate();
+    autoUpdater.downloadUpdate(updateCancellationToken);
   }
 
   cancelSkipUpdate();
