@@ -52,9 +52,34 @@ jobs:
           npm install
           cd src/vocascan-frontend && npm install
 
-      - name: Date
-        id: date
-        run: echo "::set-output name=date::$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+      - name: Add custom metadata
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const fs = require("fs");
+            const { execSync } = require("child_process");
+            const desktopJSON = require("./package.json");
+            const frontendJSON = require("./src/vocascan-frontend/package.json");
+
+            const currentDate = new Date().toISOString();
+
+            desktopJSON.metadata = {
+              commit: context.sha,
+              date: currentDate,
+              runId: context.runId,
+              runNumber: context.runNumber,
+            }
+
+            frontendJSON.metadata = {
+              commit: execSync("git rev-parse HEAD", { cwd: "./src/vocascan-frontend" }).toString().trim(),
+              date: currentDate,
+              runRepo: "vocascan-desktop",
+              runId: context.runId,
+              runNumber: context.runNumber,
+            }
+
+            fs.writeFileSync("./package.json", JSON.stringify(desktopJSON, null, 2), { encoding: "utf-8" })
+            fs.writeFileSync("./src/vocascan-frontend/package.json", JSON.stringify(frontendJSON, null, 2), { encoding: "utf-8" })
 
       - name: Install Snapcraft
         uses: samuelmeuli/action-snapcraft@v1
@@ -73,5 +98,4 @@ jobs:
         with:
           build_script_name: build:react
           github_token: ${{ secrets.VOCASCAN_BOT_TOKEN }}
-          args: "-c.extraMetadata.commit='${{ github.sha }}' -c.extraMetadata.date='${{ steps.date.outputs.date }}' -c.extraMetadata.runId='${{ env.GITHUB_RUN_ID }}' -c.extraMetadata.runNumber='${{ env.GITHUB_RUN_NUMBER }}'"
           release: true
