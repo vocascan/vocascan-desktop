@@ -2,13 +2,7 @@ const os = require("os");
 const { ipcMain, app, dialog, clipboard } = require("electron");
 const i18n = require("i18next");
 
-const {
-  commit,
-  date,
-  runRepo,
-  runId,
-  runNumber,
-} = require("../../../package.json");
+const { metadata } = require("../../../package.json");
 const { dayDateDiff } = require("../../utils/utils");
 
 const getVersionString = () => {
@@ -55,11 +49,7 @@ const registerIpcHandlers = () => {
 
   ipcMain.handle("getVersions", () => ({
     version: app.getVersion(),
-    commit,
-    date,
-    runRepo,
-    runNumber,
-    runId,
+    ...metadata,
     versions: {
       electron: process.versions.electron,
       chrome: process.versions.chrome,
