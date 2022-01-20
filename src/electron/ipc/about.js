@@ -17,7 +17,7 @@ const getVersionString = () => {
   }
 
   const versionString = `
-        Version: ${app.getVersion()} (#${metadata.runNumber}-${metadata.runId})
+        Version: ${app.getVersion()} (#${metadata.runId}-${metadata.runNumber})
         Commit: ${metadata.commit || "unknown"}
         Date: ${dateString}
         Electron: ${process.versions.electron}
