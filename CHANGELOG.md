@@ -3,6 +3,13 @@
 This changelog goes through all the changes that have been made in each release on the
 [vocascan-desktop](https://github.com/vocascan/vocascan-desktop).
 
+## [v1.2.0](https://github.com/vocascan/vocascan-desktop/releases/tag/v1.2.0) - 2022.01.22
+
+- Enhancements
+  - i18n for menu bar
+- Security
+  - context isolation and web security
+
 ## [v1.1.0](https://github.com/vocascan/vocascan-desktop/releases/tag/v1.1.0) - 2021.11.20
 
 After some time, a new version of Vocascan is coming, with import/export features to share your vocabulary packages and
