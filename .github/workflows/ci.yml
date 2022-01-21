@@ -34,7 +34,7 @@ jobs:
       # keep building even if another job is failed
       fail-fast: false
       matrix:
-        os: [windows-latest] #, ubuntu-latest, macos-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
       - name: Checkout
@@ -83,7 +83,7 @@ jobs:
 
       - name: Install Snapcraft
         uses: samuelmeuli/action-snapcraft@v1
-        if: false # startsWith(matrix.os, 'ubuntu')
+        if: startsWith(matrix.os, 'ubuntu')
         with:
           # Log in to Snap Store
           snapcraft_token: ${{ secrets.SNAPCRAFT_TOKEN }}
