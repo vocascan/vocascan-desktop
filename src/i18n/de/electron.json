@@ -1,4 +1,51 @@
 {
+  "dialogs": {
+    "actions": {
+      "copy": "Kopieren",
+      "ok": "Ok"
+    }
+  },
+  "ipc": {
+    "fileOperations": {
+      "saveFile": "Wähle aus, wo du deine Datei speichern möchtest"
+    }
+  },
+  "menu": {
+    "edit": {
+      "label": "Bearbeiten",
+      "submenu": {
+        "copy": "Kopieren",
+        "cut": "Ausschneiden",
+        "paste": "Einfügen",
+        "redo": "Wiederholen",
+        "selectAll": "Alle auswählen",
+        "undo": "Rückgängig"
+      }
+    },
+    "help": {
+      "label": "Hilfe",
+      "submenu": {
+        "about": "Über",
+        "checkForUpdates": "Nach Updates suchen",
+        "communityDiscussions": "Community Diskussionen",
+        "documentation": "Dokumentation",
+        "learnMore": "Mehr erfahren",
+        "searchIssues": "Issues suchen"
+      }
+    },
+    "view": {
+      "label": "Ansicht",
+      "submenu": {
+        "actualSize": "Tatsächliche Größe",
+        "forceReload": "Neuladen erzwingen",
+        "reload": "Neu laden",
+        "toggleDevTools": "Entwicklertools umschalten",
+        "toggleFullScreen": "Vollbild umschalten",
+        "zoomIn": "Vergrößern",
+        "zoomOut": "Verkleinern"
+      }
+    }
+  },
   "splash": {
     "start": {
       "restarting": "Neustarten...",
