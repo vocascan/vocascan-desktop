@@ -3,6 +3,10 @@
 This changelog goes through all the changes that have been made in each release on the
 [vocascan-desktop](https://github.com/vocascan/vocascan-desktop).
 
+## [v1.2.1](https://github.com/vocascan/vocascan-desktop/releases/tag/v1.2.1) - 2022.01.29
+
+This release bumps the vocascan-frontend version to [v1.2.1](https://github.com/vocascan/vocascan-frontend/releases/tag/v1.2.1).
+
 ## [v1.2.0](https://github.com/vocascan/vocascan-desktop/releases/tag/v1.2.0) - 2022.01.22
 
 We have moved the frontend from the Vocascan desktop repo to an external repo and include it in the desktop app only as a submodule. This gives the possibility to use the Vocascan app with a browser as well. And lastly, we improved the web security of the desktop to protect against XSS attacks which try to require some node modules.
