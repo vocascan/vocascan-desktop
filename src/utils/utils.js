@@ -1,3 +1,5 @@
+const { BrowserWindow } = require("electron");
+
 /**
  * Calculate day difference between two dates
  * See: https://www.geeksforgeeks.org/how-to-calculate-the-number-of-days-between-two-dates-in-javascript/
@@ -11,6 +13,11 @@ const dayDateDiff = (date1, date2) => {
   return Math.floor(timeDiff / (1000 * 60 * 60 * 24));
 };
 
+const getBrowserWindowFromEvent = (e) => {
+  return BrowserWindow.fromId(e.sender.id);
+};
+
 module.exports = {
   dayDateDiff,
+  getBrowserWindowFromEvent,
 };
