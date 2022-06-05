@@ -1,4 +1,5 @@
 const { ipcRenderer, contextBridge } = require("electron");
+const { preload } = require("@luwol03/react-touchbar-electron/preload");
 
 const electron = {
   ipcRenderer: {
@@ -17,9 +18,4 @@ const electron = {
 
 contextBridge.exposeInMainWorld("electron", electron);
 
-// used for react-touchbar-electron
-contextBridge.exposeInMainWorld("require", (name) => {
-  if (name === "electron") {
-    return electron;
-  }
-});
+preload();
