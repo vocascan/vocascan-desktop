@@ -2,6 +2,7 @@ const handlerFiles = [
   "./about.js",
   "./clipboard.js",
   "./fileOperations.js",
+  "./touchbar.js",
   "./updater.js",
 ];
 
